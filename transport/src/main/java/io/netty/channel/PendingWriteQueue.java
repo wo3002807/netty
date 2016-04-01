@@ -105,7 +105,7 @@ public final class PendingWriteQueue {
         // if the channel was already closed when constructing the PendingWriteQueue.
         // See https://github.com/netty/netty/issues/3967
         if (buffer != null) {
-            buffer.incrementPendingOutboundBytes(write.size);
+            buffer.incrementPendingOutboundBytes(write.size, true);
         }
     }
 
@@ -278,7 +278,7 @@ public final class PendingWriteQueue {
         // if the channel was already closed when constructing the PendingWriteQueue.
         // See https://github.com/netty/netty/issues/3967
         if (buffer != null) {
-            buffer.decrementPendingOutboundBytes(writeSize);
+            buffer.decrementPendingOutboundBytes(writeSize, true);
         }
     }
 

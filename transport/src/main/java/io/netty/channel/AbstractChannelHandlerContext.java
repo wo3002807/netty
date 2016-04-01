@@ -1070,7 +1070,7 @@ abstract class AbstractChannelHandlerContext extends DefaultAttributeMap
                 // Check for null as it may be set to null if the channel is closed already
                 if (buffer != null) {
                     task.size = ctx.pipeline.estimatorHandle().size(msg) + WRITE_TASK_OVERHEAD;
-                    buffer.incrementPendingOutboundBytes(task.size);
+                    buffer.incrementPendingOutboundBytes(task.size, true);
                 } else {
                     task.size = 0;
                 }
@@ -1085,7 +1085,7 @@ abstract class AbstractChannelHandlerContext extends DefaultAttributeMap
                 ChannelOutboundBuffer buffer = ctx.channel().unsafe().outboundBuffer();
                 // Check for null as it may be set to null if the channel is closed already
                 if (ESTIMATE_TASK_SIZE_ON_SUBMIT && buffer != null) {
-                    buffer.decrementPendingOutboundBytes(size);
+                    buffer.decrementPendingOutboundBytes(size, true);
                 }
                 write(ctx, msg, promise);
             } finally {
